@@ -3,17 +3,30 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "postinstall": "react-native-schemes-manager all",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"
   },
+  "xcodeSchemes": {
+    "Debug": [
+      "Development"
+    ],
+    "Release": [
+      "Production"
+    ],
+    "projectDirectory": "ios",
+    "settings": {}
+  },
   "dependencies": {
     "react": "16.4.1",
-    "react-native": "0.56.0"
+    "react-native": "0.56.0",
+    "react-native-navigation": "^2.0.2470"
   },
   "devDependencies": {
     "babel-jest": "23.4.2",
     "babel-preset-react-native": "5.0.2",
     "jest": "23.5.0",
+    "react-native-schemes-manager": "^1.0.5",
     "react-test-renderer": "16.4.1"
   },
   "jest": {
