@@ -12,6 +12,7 @@ export default class Password extends Component<{}> {
     Navigation.events().bindComponent(this)
 
     this._validatePassword = this._validatePassword.bind(this)
+    this._next = this._next.bind(this)
 
     this.state = {
       error: null,
@@ -63,24 +64,29 @@ export default class Password extends Component<{}> {
         alreadyTouched: true 
       })
 
-      Navigation.push(this.props.componentId, {
-        component: {
-          name: 'root.CreateUser',
-          passProps: {
-            email: this.props.email,
-            password: this.state.password
+      this._next()
+    }
+  }
+
+  _next() {
+
+    Navigation.push(this.props.componentId, {
+      component: {
+        name: 'verification.CreateUser',
+        passProps: {
+          email: this.props.email,
+          password: this.state.password
+        },
+        options: {
+          topBar: {
+            transparent: true,
           },
-          options: {
-            topBar: {
-              transparent: true,
-            },
-            layout: {
-              backgroundColor: '#F0F3F4'
-            }
+          layout: {
+            backgroundColor: '#F0F3F4'
           }
         }
-      })
-    }
+      }
+    })
   }
 
   render () {

@@ -6,7 +6,7 @@ if (__DEV__) {
   //global.location.hostname
   //global.location.protocol + '//' + global.location.hostname + ':3001'
 
-  url = 'http://10.0.0.128:3001' //Port of local web server
+  url = 'http://10.0.0.189:3001' //Port of local web server
 
 } else {
 

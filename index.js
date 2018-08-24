@@ -1,35 +1,13 @@
 import { AsyncStorage } from 'react-native'
 import { Navigation } from 'react-native-navigation'
 import { registerScreens } from './screens'
+import { login } from './app/api/rootComponents'
 
 registerScreens()
 
 Navigation.events().registerAppLaunchedListener(() => {
 
-  Navigation.setRoot({
-    root: {
-      stack: {
-        children: [
-          {
-            component: {
-              name: 'root.Login',
-            }
-          }
-        ],
-        options: {
-          topBar: {
-            background: {
-              color: 'rgb(58, 61, 80)'
-            },
-            transparent: true,
-          },
-          layout: {
-            backgroundColor: 'rgb(58, 61, 80)'
-          }
-        }
-      }
-    }
-  })
+  Navigation.setRoot(login)
 })
 
 // (async function () {

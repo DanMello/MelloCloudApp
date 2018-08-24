@@ -64,7 +64,11 @@ export default class Login extends Component<{}> {
 
     Navigation.push(this.props.componentId, {
       component: {
-        name: 'root.Signup',
+        name: 'verification.CreateUser',
+        passProps: {
+          email: 'kjdslkaj@kasd.com',
+          password: 'jewbatet222'
+        },
         options: {
           topBar: {
             transparent: true,

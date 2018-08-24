@@ -12,6 +12,7 @@ export default class Signup extends Component<{}> {
     Navigation.events().bindComponent(this)
 
     this._validEmail = this._validEmail.bind(this)
+    this._next = this._next.bind(this)
 
     this.state = {
       error: null,
@@ -75,22 +76,7 @@ export default class Signup extends Component<{}> {
 
         } else {
 
-          Navigation.push(this.props.componentId, {
-            component: {
-              name: 'root.Password',
-              passProps: {
-                email: this.state.email
-              },
-              options: {
-                topBar: {
-                  transparent: true,
-                },
-                layout: {
-                  backgroundColor: '#F0F3F4'
-                }
-              }
-            }
-          })
+          this._next()
         }
 
       }).catch(err => {
@@ -107,6 +93,26 @@ export default class Signup extends Component<{}> {
 
       this.setState({error: 'Please enter a valid email address'})
     }
+  }
+
+  _next () {
+
+    Navigation.push(this.props.componentId, {
+      component: {
+        name: 'verification.Password',
+        passProps: {
+          email: this.state.email
+        },
+        options: {
+          topBar: {
+            transparent: true,
+          },
+          layout: {
+            backgroundColor: '#F0F3F4'
+          }
+        }
+      }
+    })
   }
 
   _termsLink() {
@@ -185,7 +191,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 20,
     marginTop: 5
-  },
-
+  }
 })
 
