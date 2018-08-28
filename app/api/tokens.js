@@ -22,35 +22,32 @@ export function createToken(name, token) {
   })
 }
 
-export function getToken(name) {
+export async function getToken(name) {
 
-  return new Promise(async (resolve, reject) => {
+  let token
 
-    try {
+  try {
 
-      await AsyncStorage.getItem(name).then(token => {
+    await AsyncStorage.getItem(name).then(userToken => {
 
-        if (token) {
+      if (userToken) {
 
-          resolve({
-            token: token
-          })
-          
-        } else {
+        token = userToken
+        
+      } else {
 
-          resolve({
-            oops: 'no token'
-          })
-        } 
+        token = false
+      } 
 
-      }).catch(err => {
+    }).catch(err => {
 
-        throw err
-      })
+      throw err
+    })
 
-    } catch (err) {
+  } catch (err) {
 
-      reject(err)
-    }
-  })
+    token = new Error(err)
+  }
+
+  return token
 }

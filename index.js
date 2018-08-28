@@ -1,53 +1,31 @@
-import { AsyncStorage } from 'react-native'
 import { Navigation } from 'react-native-navigation'
 import { registerScreens } from './screens'
-import { login } from './app/api/rootComponents'
+import { verification, app, getToken } from './app/api/apiLoader'
 
-registerScreens()
+(async function startApp() {
 
-Navigation.events().registerAppLaunchedListener(() => {
+  registerScreens()
 
-  Navigation.setRoot(login)
-})
+  const token = await getToken('userToken')
 
-// (async function () {
+  let component
 
-//   let component
+  if (token) {
 
-//   try {
+    component = await app()
 
-//     await AsyncStorage.getItem('userToken').then(token => {
+  } else if (token === false) {
 
-//       if (token) {
+    component = verification
 
-        
-        
-//       } else {
+  } else if (token === Error) {
 
-//         component = {
-//           root: {
-//             component: {
-//               name: 'root.Login'
-//             }
-//           }
-//         }
-//       }
+    console.log(token)
+  }
 
-//     }).catch(err => {
+  Navigation.events().registerAppLaunchedListener(() => {
 
-//       throw err
-//     })
+    Navigation.setRoot(component)
+  })
 
-//   } catch (err) {
-
-//     console.log(err)
-//   }
-
-//   Navigation.events().registerAppLaunchedListener(() => {
-
-//     console.log('ran')
-
-//     Navigation.setRoot(component)
-//   })
-
-// })()
+})()

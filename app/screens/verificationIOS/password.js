@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, TextInput, Text, Button, ScrollView, KeyboardAvoidingView} from 'react-native'
+import { StyleSheet, View, TextInput, Text, Button, KeyboardAvoidingView} from 'react-native'
 import { Navigation } from 'react-native-navigation'
 import { url } from '../../api/url'
 

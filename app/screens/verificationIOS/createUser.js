@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, ActivityIndicator, TouchableOpacity, AsyncStorage } from 'react-native'
-import { url, createToken } from '../../api/apiLoader'
+import { StyleSheet, View, Text, ActivityIndicator, TouchableOpacity } from 'react-native'
+import { Navigation } from 'react-native-navigation'
+import { url, createToken, app, login } from '../../api/apiLoader'
 
 export default class CreateUser extends Component<{}> {
 
@@ -44,29 +45,18 @@ export default class CreateUser extends Component<{}> {
 
       } else {
 
-        createToken('userToken', resJson.token)
-          .then(() => {
+        createToken('userToken', resJson.token).then(() => {
 
-            Navigation.setStackRoot(this.props.componentId, {
-              component: {
-                name: 'example.NewRootScreen',
-                passProps: {
-                  text: 'Root screen'
-                },
-                options: {
-                  animated: true // Will animate root change same as push
-                }
-              }
-            });
+          login()
 
-          }).catch(err => {
+        }).catch(err => {
 
-            this.setState({
-              loading: false,
-              error: true,
-              errorMessage: 'There was an error trying to create a token to keep you logged in. Please try to login, your account has been created.'
-            })
+          this.setState({
+            loading: false,
+            error: true,
+            errorMessage: err.message
           })
+        })
       }
 
     }).catch(err => {
@@ -95,7 +85,6 @@ export default class CreateUser extends Component<{}> {
     }
 
     if (this.state.error) {
-
       return (
         <View style={styles.errorContainer}>
           <View style={styles.errorBox}>

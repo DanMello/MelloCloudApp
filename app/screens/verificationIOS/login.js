@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, TextInput, Text, Button, ScrollView, TouchableOpacity, Linking} from 'react-native'
+import { StyleSheet, View, TextInput, Text, TouchableOpacity, Linking} from 'react-native'
 import { Navigation } from 'react-native-navigation'
-import { url } from '../../api/url'
+import { url, createToken, app, login } from '../../api/apiLoader'
 
 export default class Login extends Component<{}> {
 
@@ -10,7 +10,7 @@ export default class Login extends Component<{}> {
     super()
     
     this._validate = this._validate.bind(this)
-    this._next = this._next.bind(this)
+    this._signUp = this._signUp.bind(this)
 
     this.state = {
       error: null,
@@ -27,7 +27,7 @@ export default class Login extends Component<{}> {
 
     } else {
       
-      fetch(url + '/welcome/login', {
+      fetch(url + '/account/login', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -50,7 +50,16 @@ export default class Login extends Component<{}> {
 
         } else {
 
-          this.props.createToken('userToken', resJson.token)
+          createToken('userToken', resJson.token).then(() => {
+
+            login()
+
+          }).catch(err => {
+
+            this.setState({
+              error: err.message
+            })
+          })
         }
           
       }).catch(err => {
@@ -60,15 +69,11 @@ export default class Login extends Component<{}> {
     }
   }
 
-  _next () {
+  _signUp () {
 
     Navigation.push(this.props.componentId, {
       component: {
-        name: 'verification.CreateUser',
-        passProps: {
-          email: 'kjdslkaj@kasd.com',
-          password: 'jewbatet222'
-        },
+        name: 'verification.Signup',
         options: {
           topBar: {
             transparent: true,
@@ -121,7 +126,7 @@ export default class Login extends Component<{}> {
           <View>
             <TouchableOpacity 
               style={styles.signupContainer}
-              onPress={this._next}>
+              onPress={this._signUp}>
               <Text style={styles.signupText}>Register now</Text>
             </TouchableOpacity>
             <TouchableOpacity
