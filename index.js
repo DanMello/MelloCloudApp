@@ -6,21 +6,21 @@ import { verification, app, getToken } from './app/api/apiLoader'
 
   registerScreens()
 
-  const token = await getToken('userToken')
+  const tokenObj = await getToken('userToken')
 
   let component
 
-  if (token) {
+  if (tokenObj.isValid === true) {
 
     component = await app()
 
-  } else if (token === false) {
+  } else if (tokenObj.isValid === false) {
 
-    component = verification
+    component = verification()
 
-  } else if (token === Error) {
+  } else if (tokenObj.error === true) {
 
-    console.log(token)
+    component = verification(tokenObj.message)
   }
 
   Navigation.events().registerAppLaunchedListener(() => {

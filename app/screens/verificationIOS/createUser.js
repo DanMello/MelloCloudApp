@@ -25,6 +25,8 @@ export default class CreateUser extends Component<{}> {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        firstName: this.props.firstName,
+        lastName: this.props.lastName,
         email: this.props.email,
         password: this.props.password
       })
@@ -47,7 +49,7 @@ export default class CreateUser extends Component<{}> {
 
         createToken('userToken', resJson.token).then(() => {
 
-          login()
+          login(resJson.token)
 
         }).catch(err => {
 

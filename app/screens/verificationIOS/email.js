@@ -38,7 +38,8 @@ export default class Signup extends Component<{}> {
   componentDidDisappear() {
 
     this.setState({
-      keyboard: false
+      keyboard: false,
+      error: null
     })
   }
 
@@ -101,6 +102,8 @@ export default class Signup extends Component<{}> {
       component: {
         name: 'verification.Password',
         passProps: {
+          firstName: this.props.firstName,
+          lastName: this.props.lastName,
           email: this.state.email
         },
         options: {
@@ -130,7 +133,7 @@ export default class Signup extends Component<{}> {
         >
         <View>
           <Text style={styles.error}>{this.state.error}</Text>
-          <Text style={styles.heading}>Enter your email to signup</Text>
+          <Text style={styles.heading}>What's your email?</Text>
         </View>
         <TextInput
           style={styles.TextInput}
@@ -142,12 +145,8 @@ export default class Signup extends Component<{}> {
           autoCorrect={false}
           returnKeyType='done'
         />
-        <View>
-          <Text style={styles.statement}>Tap "Submit & Continue" to accept Mello Cloud's</Text>
-          <Text style={styles.termsLink} onPress={this._termsLink}>Terms of Service and Privacy Policy</Text>
-        </View>
         <Button
-          title="Submit & Continue"
+          title="Continue"
           disabled={this.state.alreadyTouched}
           onPress={this._validEmail}
         />

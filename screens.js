@@ -4,7 +4,8 @@ export function registerScreens() {
 
   //Verification Screens
   Navigation.registerComponent('verification.Login', () => require('./app/screens/verificationIOS/login').default)
-  Navigation.registerComponent('verification.Signup', () => require('./app/screens/verificationIOS/signup').default)
+  Navigation.registerComponent('verification.Name', () => require('./app/screens/verificationIOS/name').default)
+  Navigation.registerComponent('verification.Email', () => require('./app/screens/verificationIOS/email').default)
   Navigation.registerComponent('verification.Password', () => require('./app/screens/verificationIOS/password').default)
   Navigation.registerComponent('verification.CreateUser', () => require('./app/screens/verificationIOS/createUser').default)
   
@@ -14,4 +15,7 @@ export function registerScreens() {
   Navigation.registerComponent('root.Customers', () => require('./app/screens/root/customers').default)
   Navigation.registerComponent('root.Feed', () => require('./app/screens/root/feed').default)
   Navigation.registerComponent('root.Money', () => require('./app/screens/root/money').default)
+
+  //Account Screens
+  Navigation.registerComponent('account.editPersonalInfo', () => require('./app/screens/root/account/editPersonalInfo').default)
 }

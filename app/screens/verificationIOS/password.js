@@ -74,6 +74,8 @@ export default class Password extends Component<{}> {
       component: {
         name: 'verification.CreateUser',
         passProps: {
+          firstName: this.props.firstName,
+          lastName: this.props.lastName,
           email: this.props.email,
           password: this.state.password
         },
@@ -99,11 +101,11 @@ export default class Password extends Component<{}> {
         <View>
           <Text style={styles.error}>{this.state.error}</Text>
           <Text style={styles.heading}>Let's secure your account</Text>
-          <Text style={styles.inputHeadings}>Password:</Text>
         </View>
         <TextInput
           ref={'_passwordInput'}
           style={styles.TextInput}
+          placeholder='Password'
           value={this.state.password}
           autoCorrect={false}
           secureTextEntry={true}
@@ -112,12 +114,10 @@ export default class Password extends Component<{}> {
           blurOnSubmit={false}
           returnKeyType = 'next'
         />
-        <View>
-          <Text style={styles.inputHeadings}>Password Confirmation:</Text>
-        </View>
         <TextInput
           ref={'_passwordInput2'}
           style={styles.TextInput}
+          placeholder='Repeat Password'
           value={this.state.passwordConfirmation}
           autoCorrect={false}
           secureTextEntry={true}
@@ -160,6 +160,7 @@ const styles = StyleSheet.create({
   },
   TextInput: {
     height: 40,
+    marginTop: 20,
     borderColor: '#ccc',
     borderBottomWidth: 1
   },

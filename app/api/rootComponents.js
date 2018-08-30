@@ -1,25 +1,32 @@
 import { Navigation } from 'react-native-navigation'
 import { getIcons } from './icons'
+import { url } from './url'
 
-export const verification = {
-  root: {
-    stack: {
-      children: [
-        {
-          component: {
-            name: 'verification.Login',
+export function verification (error) {
+
+  return {
+    root: {
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'verification.Login',
+              passProps: {
+                error: error
+              }
+            },
           }
-        }
-      ],
-      options: {
-        topBar: {
-          background: {
-            color: 'rgb(58, 61, 80)'
+        ],
+        options: {
+          topBar: {
+            background: {
+              color: 'rgb(58, 61, 80)'
+            },
+            transparent: true,
           },
-          transparent: true,
-        },
-        layout: {
-          backgroundColor: 'rgb(58, 61, 80)'
+          layout: {
+            backgroundColor: 'rgb(58, 61, 80)'
+          }
         }
       }
     }
@@ -29,11 +36,11 @@ export const verification = {
 export async function app () {
 
   const tabBarIcons = [
-    { iconName: 'ios-menu', iconSize: 30, ref: 'Feed' },
+    { iconName: 'ios-cloud-outline', iconSize: 30, ref: 'Feed' },
     { iconName: 'ios-people', iconSize: 30, ref: 'Customers' },
     { iconName: 'ios-add', iconSize: 30, ref: 'Create' },
     { iconName: 'ios-card', iconSize: 30, ref: 'Money' },
-    { iconName: 'ios-cloud-outline', iconSize: 30, ref: 'Account' },
+    { iconName: 'ios-menu', iconSize: 30, ref: 'Account' },
   ]
 
   let appIcons = await getIcons(tabBarIcons)
@@ -148,13 +155,17 @@ export async function app () {
                 {
                   component: {
                     name: 'root.Account',
-                  }
+                  },
                 }
               ],
               options: {
                 topBar: {
                   background: {
                     color: 'rgb(58, 61, 80)'
+                  },
+                  title: {
+                    text: 'Settings',
+                    color: 'white'
                   },
                   transparent: true,
                 },
@@ -163,27 +174,15 @@ export async function app () {
                   iconColor: 'rgb(118, 118, 118)',
                   selectedIconColor: 'rgb(58, 61, 80)',
                   iconInsets: { top: 6, left: 0, bottom: -6, right: 0 },
+                },
+                layout: {
+                  backgroundColor: '#F0F3F4'
                 }
               }
             },
           }
         ],
-        options: {
-          topBar: {
-            background: {
-              color: 'rgb(58, 61, 80)'
-            },
-            transparent: true,
-          }
-        }
       }
     }
   }
-}
-
-export async function login() {
-
-  let component = await app()
-
-  Navigation.setRoot(component)
 }

@@ -5,15 +5,15 @@ import { url, createToken, app, login } from '../../api/apiLoader'
 
 export default class Login extends Component<{}> {
 
-  constructor() {
+  constructor(props) {
 
-    super()
+    super(props)
     
     this._validate = this._validate.bind(this)
     this._signUp = this._signUp.bind(this)
 
     this.state = {
-      error: null,
+      error: this.props.error || null,
       email: null,
       password: null
     }
@@ -52,7 +52,7 @@ export default class Login extends Component<{}> {
 
           createToken('userToken', resJson.token).then(() => {
 
-            login()
+            login(resJson.token)
 
           }).catch(err => {
 
@@ -73,12 +73,12 @@ export default class Login extends Component<{}> {
 
     Navigation.push(this.props.componentId, {
       component: {
-        name: 'verification.Signup',
+        name: 'verification.Name',
         options: {
           topBar: {
             transparent: true,
             backButton: {
-              title: 'Email'
+              title: 'Name'
             },
           },
           layout: {
